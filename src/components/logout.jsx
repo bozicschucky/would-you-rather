@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -9,10 +9,9 @@ const LogOut = () => {
     return state.counter.loggedInUser.loggedIn;
   });
 
-  const handleLogout = (e) => {
+  useEffect(() => {
     dispatch({ type: "LOGOUT" });
-    console.log("logging the user out");
-  };
+  });
 
   if (!isUserLoggedIn) {
     return <Redirect to="/login" />;
@@ -20,7 +19,7 @@ const LogOut = () => {
 
   return (
     <>
-      <button onClick={handleLogout}>Logout</button>
+      <p>Logging out...</p>
     </>
   );
 };
