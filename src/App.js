@@ -29,7 +29,7 @@ function App() {
           <ProtectedRoute exact path="/" component={Home} />
           <ProtectedRoute
             exact
-            path="/question-details"
+            path="/question-details/:id"
             component={QuestionDetails}
           />
           <ProtectedRoute exact path="/logout" component={LogOut} />

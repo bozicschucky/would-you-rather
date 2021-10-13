@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { getQuestions } from "../store/reducers";
 
 const Home = () => {
@@ -70,21 +71,29 @@ const Home = () => {
       <div>
         {data.map((qtn) => {
           return (
-            <div key={qtn.id} className="card options-card">
-              <p>Would you Rather</p>
-              <div className="options-holder">
-                <div className="option-text">
-                  <p>
-                    {qtn.optionOne.text} || {qtn.optionTwo.text}
-                  </p>
-                  <p>
-                    {qtn.optionOne.votes.length} votes ||{" "}
-                    {qtn.optionTwo.votes.length} votes
-                  </p>
+            <React.Fragment key={qtn.id}>
+              <Link to={`question-details/${qtn.id}`}>
+                <div key={qtn.id} className="card options-card">
+                  <p>Would you Rather</p>
+                  <div className="options-holder">
+                    <div className="option-text">
+                      <p>
+                        {qtn.optionOne.text} || {qtn.optionTwo.text}
+                      </p>
+                      <p>
+                        {qtn.optionOne.votes.length} votes ||{" "}
+                        {qtn.optionTwo.votes.length} votes
+                      </p>
+                      <p>
+                        {JSON.stringify(qtn.optionOne.votes)} ||{" "}
+                        {JSON.stringify(qtn.optionTwo.votes)}
+                      </p>
+                    </div>
+                    <p>Written by {qtn.author}</p>
+                  </div>
                 </div>
-                <p>Written by {qtn.author}</p>
-              </div>
-            </div>
+              </Link>
+            </React.Fragment>
           );
         })}
       </div>
