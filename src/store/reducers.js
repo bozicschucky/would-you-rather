@@ -1,9 +1,29 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { _getUsers } from "../data";
+
+export const getAllUsers = createAsyncThunk(
+  "users/getUsers",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const response = await _getUsers();
+      const data = response;
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
 
 export const counterSlice = createSlice({
   name: "counter",
   initialState: {
     value: 0,
+    users: [],
+    loggedInUser: {
+      name: "",
+      loggedIn: false,
+    },
+    questions: [],
   },
   reducers: {
     increment: (state) => {
@@ -19,6 +39,15 @@ export const counterSlice = createSlice({
     incrementByAmount: (state, action) => {
       state.value += action.payload;
     },
+  },
+  extraReducers(builder) {
+    builder.addCase(getAllUsers.fulfilled, (state, action) => {
+      state.users = action.payload;
+    });
+    builder.addCase("LOGIN", (state, action) => {
+      state.loggedInUser.name = action.payload;
+      state.loggedInUser.loggedIn = true;
+    });
   },
 });
 
