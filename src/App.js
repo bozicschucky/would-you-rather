@@ -7,32 +7,14 @@ import {
   Login,
   ProtectedRoute,
   LogOut,
+  NavBar,
 } from "./components";
 
 function App() {
   return (
     <Router>
+      <NavBar />
       <div className="App">
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-            <li>
-              <Link to="/question-details">Question Details</Link>
-            </li>
-            <li>
-              <Link to="/leader-boards">LeaderBoards</Link>
-            </li>
-            <li>
-              <Link to="/logout">log out</Link>
-            </li>
-          </ul>
-        </nav>
-
         <Switch>
           <Route path="/login">
             <Login />

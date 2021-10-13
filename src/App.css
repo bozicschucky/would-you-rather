@@ -50,3 +50,16 @@
   width: 100%;
   gap: 10px 20px;
 }
+
+.nav-items {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 10px 20px;
+}
+
+ul {
+  list-style-type: none;
+}
