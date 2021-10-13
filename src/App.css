@@ -63,3 +63,17 @@
 ul {
   list-style-type: none;
 }
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  padding: 10px 12px;
+  background: rgb(254, 255, 243);
+  align-items: center;
+}
+
+.card:hover {
+  cursor: pointer;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  background: rgb(247, 241, 191);
+}

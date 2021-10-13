@@ -1,7 +1,93 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getQuestions } from "../store/reducers";
 
 const Home = () => {
-  return <div>Welcome to tHe home page</div>;
+  const dispatch = useDispatch();
+  const loggedInUser = useSelector((state) => state.counter.loggedInUser.name);
+  const questions = useSelector((state) => state.counter.questions);
+  const questionsArray = Object.values(questions);
+  const questionCategories = {
+    answered: [],
+    unanswered: [],
+  };
+
+  const groupQuestions = (questions) => {
+    questions.forEach((question) => {
+      if (
+        question.optionOne.votes.includes(loggedInUser) ||
+        question.optionTwo.votes.includes(loggedInUser)
+      ) {
+        questionCategories.answered.push(question);
+      } else {
+        questionCategories.unanswered.push(question);
+      }
+    });
+  };
+  // groups questions into answered and unanswered
+  groupQuestions(questionsArray);
+
+  const [dataCategory, setDataToggle] = useState("unanswered");
+  const [questionCategory, setCategory] = useState(
+    questionCategories[dataCategory]
+  );
+  useEffect(() => {
+    dispatch(getQuestions());
+  }, [dispatch]);
+
+  const handleDataToggle = (e) => {
+    const answer = e.target.dataset.answer;
+    setDataToggle(answer);
+    setCategory(questionCategories[answer]);
+  };
+
+  const data = questionCategory.length
+    ? questionCategory
+    : questionCategories["unanswered"];
+
+  return (
+    <div>
+      <p>Welcome back user {loggedInUser}</p>
+
+      <h3>User Questions</h3>
+      <p>
+        <button
+          type="button"
+          data-answer="unanswered"
+          onClick={handleDataToggle}
+        >
+          {" "}
+          UnAnswered
+        </button>{" "}
+        ||{" "}
+        <button data-answer="answered" onClick={handleDataToggle}>
+          Answered
+        </button>
+      </p>
+      <p>{dataCategory} Questions</p>
+      <div>
+        {data.map((qtn) => {
+          return (
+            <div key={qtn.id} className="card options-card">
+              <p>Would you Rather</p>
+              <div className="options-holder">
+                <div className="option-text">
+                  <p>
+                    {qtn.optionOne.text} || {qtn.optionTwo.text}
+                  </p>
+                  <p>
+                    {qtn.optionOne.votes.length} votes ||{" "}
+                    {qtn.optionTwo.votes.length} votes
+                  </p>
+                </div>
+                <p>Written by {qtn.author}</p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
 };
 
 export default Home;
