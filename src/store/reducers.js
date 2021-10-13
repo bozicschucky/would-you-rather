@@ -48,6 +48,10 @@ export const counterSlice = createSlice({
       state.loggedInUser.name = action.payload;
       state.loggedInUser.loggedIn = true;
     });
+    builder.addCase("LOGOUT", (state, action) => {
+      state.loggedInUser.name = "";
+      state.loggedInUser.loggedIn = false;
+    });
   },
 });
 

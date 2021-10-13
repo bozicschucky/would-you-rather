@@ -6,6 +6,7 @@ import {
   LeaderBoards,
   Login,
   ProtectedRoute,
+  LogOut,
 } from "./components";
 
 function App() {
@@ -26,6 +27,9 @@ function App() {
             <li>
               <Link to="/leader-boards">LeaderBoards</Link>
             </li>
+            <li>
+              <Link to="/logout">log out</Link>
+            </li>
           </ul>
         </nav>
 
@@ -44,6 +48,7 @@ function App() {
             path="/question-details"
             component={QuestionDetails}
           />
+          <ProtectedRoute exact path="/logout" component={LogOut} />
         </Switch>
       </div>
     </Router>
