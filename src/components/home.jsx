@@ -47,7 +47,9 @@ const Home = () => {
 
   return (
     <div>
-      <p>Welcome back user {loggedInUser}</p>
+      <p>
+        Welcome back user <span className="user-name">{loggedInUser}</span>
+      </p>
 
       <h3>User Questions</h3>
       <p>
