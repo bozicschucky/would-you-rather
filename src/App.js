@@ -8,6 +8,7 @@ import {
   ProtectedRoute,
   LogOut,
   NavBar,
+  CreatePoll,
 } from "./components";
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
             path="/leader-boards"
             component={LeaderBoards}
           />
+          <ProtectedRoute exact path="/create-poll" component={CreatePoll} />
           <ProtectedRoute exact path="/" component={Home} />
           <ProtectedRoute
             exact
