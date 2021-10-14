@@ -1,6 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
+const computePercentage = (votes, totalVotes) => {
+  if (votes === 0) {
+    return 0;
+  }
+  return Math.round((votes / totalVotes) * 100);
+};
 export const QuestionDetails = (props) => {
   const questionId = props.match.params.id;
   const questions = useSelector((state) => state.counter.questions);
@@ -9,6 +15,12 @@ export const QuestionDetails = (props) => {
   const selectedQuestion = questions[questionId];
   const pollAuthor = selectedQuestion.author;
   const authorDetail = authorDetails[pollAuthor];
+  const optionOneVotes = selectedQuestion.optionOne.votes.length;
+  const optionTwoVotes = selectedQuestion.optionTwo.votes.length;
+  const selectedOptionOnePollText = selectedQuestion.optionOne.text;
+  const selectedOptionTwoPollText = selectedQuestion.optionTwo.text;
+  const optionOneVoters = JSON.stringify(selectedQuestion.optionOne.votes);
+  const optionTwoVoters = JSON.stringify(selectedQuestion.optionTwo.votes);
 
   return (
     <div>
@@ -19,19 +31,20 @@ export const QuestionDetails = (props) => {
         <div className="options-holder">
           <div className="option-text">
             <p>
-              {selectedQuestion.optionOne.text} ||{" "}
-              {selectedQuestion.optionTwo.text}
+              {selectedOptionOnePollText} || {selectedOptionTwoPollText}
             </p>
             <p>
-              {selectedQuestion.optionOne.votes.length} votes ||{" "}
-              {selectedQuestion.optionTwo.votes.length} votes
+              {optionOneVotes} votes || {optionTwoVotes} votes
             </p>
             <p>
-              {JSON.stringify(selectedQuestion.optionOne.votes)} ||{" "}
-              {JSON.stringify(selectedQuestion.optionTwo.votes)}
+              {computePercentage(optionOneVotes, 3)}% ||{" "}
+              {computePercentage(optionTwoVotes, 3)} %
+            </p>
+            <p>
+              {optionOneVoters} || {optionTwoVoters}
             </p>
           </div>
-          <p>Written by {selectedQuestion.author}</p>
+          <p>Written by {pollAuthor}</p>
         </div>
       </div>
     </div>
