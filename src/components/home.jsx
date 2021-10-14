@@ -45,6 +45,9 @@ const Home = () => {
   const data = questionCategory.length
     ? questionCategory
     : questionCategories["unanswered"];
+  const sortedData = data.sort((a, b) => {
+    return b.timestamp - a.timestamp;
+  });
 
   return (
     <div>
@@ -69,7 +72,7 @@ const Home = () => {
       </p>
       <p>{dataCategory} Questions</p>
       <div>
-        {data.map((qtn) => {
+        {sortedData.map((qtn) => {
           return (
             <React.Fragment key={qtn.id}>
               <Link to={`question-details/${qtn.id}`}>
