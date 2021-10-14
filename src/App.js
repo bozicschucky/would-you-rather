@@ -25,7 +25,7 @@ function App() {
             path="/leader-boards"
             component={LeaderBoards}
           />
-          <ProtectedRoute exact path="/create-poll" component={CreatePoll} />
+          <ProtectedRoute exact path="/add" component={CreatePoll} />
           <ProtectedRoute exact path="/" component={Home} />
           <ProtectedRoute
             exact

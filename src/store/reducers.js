@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { _getUsers, _getQuestions } from "../data";
+import { _getUsers, _getQuestions, _saveQuestion } from "../data";
 
 export const getAllUsers = createAsyncThunk(
   "users/getUsers",
@@ -19,6 +19,19 @@ export const getQuestions = createAsyncThunk(
   async (payload, { rejectWithValue }) => {
     try {
       const response = await _getQuestions();
+      const data = response;
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const saveQuestion = createAsyncThunk(
+  "questions/saveQuestion",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const response = await _saveQuestion(payload);
       const data = response;
       return data;
     } catch (error) {
@@ -59,6 +72,11 @@ export const counterSlice = createSlice({
     });
     builder.addCase(getQuestions.fulfilled, (state, action) => {
       state.questions = action.payload;
+    });
+    builder.addCase(saveQuestion.fulfilled, (state, action) => {
+      const savedQuestion = action.payload;
+      const id = savedQuestion.id;
+      state.questions = { ...state.questions, [id]: savedQuestion };
     });
     builder.addCase("LOGIN", (state, action) => {
       state.loggedInUser.name = action.payload;
