@@ -9,7 +9,10 @@ export const NavBar = () => {
           <Link to="/">Home</Link>
         </li>
         <li>
-          <Link to="/question-details">Question Details</Link>
+          <Link to="/create-poll">Create Poll</Link>
+        </li>
+        <li>
+          <Link to="/question-details/:id">Question Details</Link>
         </li>
         <li>
           <Link to="/leader-boards">LeaderBoards</Link>

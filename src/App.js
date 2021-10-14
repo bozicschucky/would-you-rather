@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import {
   Home,
   QuestionDetails,
@@ -8,6 +8,7 @@ import {
   ProtectedRoute,
   LogOut,
   NavBar,
+  CreatePoll,
 } from "./components";
 
 function App() {
@@ -24,10 +25,11 @@ function App() {
             path="/leader-boards"
             component={LeaderBoards}
           />
+          <ProtectedRoute exact path="/create-poll" component={CreatePoll} />
           <ProtectedRoute exact path="/" component={Home} />
           <ProtectedRoute
             exact
-            path="/question-details"
+            path="/question-details/:id"
             component={QuestionDetails}
           />
           <ProtectedRoute exact path="/logout" component={LogOut} />
