@@ -52,7 +52,7 @@ const Home = () => {
   return (
     <div>
       <p>
-        Welcome back user <span className="user-name">{loggedInUser}</span>
+        Welcome back <span className="user-name">{loggedInUser}</span>
       </p>
 
       <h3>User Questions</h3>
@@ -77,22 +77,12 @@ const Home = () => {
             <React.Fragment key={qtn.id}>
               <Link to={`question-details/${qtn.id}`}>
                 <div key={qtn.id} className="card options-card">
-                  <p>Would you Rather</p>
                   <div className="options-holder">
                     <div className="option-text">
                       <p>
                         {qtn.optionOne.text} || {qtn.optionTwo.text}
                       </p>
-                      <p>
-                        {qtn.optionOne.votes.length} votes ||{" "}
-                        {qtn.optionTwo.votes.length} votes
-                      </p>
-                      <p>
-                        {JSON.stringify(qtn.optionOne.votes)} ||{" "}
-                        {JSON.stringify(qtn.optionTwo.votes)}
-                      </p>
                     </div>
-                    <p>Written by {qtn.author}</p>
                   </div>
                 </div>
               </Link>
