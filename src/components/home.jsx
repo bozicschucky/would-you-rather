@@ -6,14 +6,15 @@ import { getQuestions } from "../store/reducers";
 const Home = () => {
   const dispatch = useDispatch();
   const loggedInUser = useSelector((state) => state.counter.loggedInUser.name);
+  const answerDetails = useSelector((state) => state.counter.answerDetails);
   const questions = useSelector((state) => state.counter.questions);
   const questionsArray = Object.values(questions);
 
   const [dataCategory, setDataToggle] = useState("unanswered");
 
   useEffect(() => {
-    dispatch(getQuestions());
-  }, [dispatch]);
+    dispatch(getQuestions(answerDetails.details));
+  }, [dispatch, answerDetails.details]);
 
   const handleDataToggle = (e) => {
     const answer = e.target.dataset.answer;
