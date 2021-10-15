@@ -8,6 +8,7 @@ import {
   ProtectedRoute,
   LogOut,
   NavBar,
+  NotFound,
   CreatePoll,
 } from "./components";
 
@@ -19,6 +20,9 @@ function App() {
         <Switch>
           <Route path="/login">
             <Login />
+          </Route>
+          <Route path="/404">
+            <NotFound />
           </Route>
           <ProtectedRoute exact path="/leaderboard" component={LeaderBoards} />
           <ProtectedRoute exact path="/add" component={CreatePoll} />

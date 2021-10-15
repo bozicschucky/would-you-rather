@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Redirect } from "react-router-dom";
 import {
   saveQuestionAnswer,
   getQuestions,
@@ -18,16 +19,15 @@ export const QuestionDetails = (props) => {
   const questions = useSelector((state) => state.app.questions);
   const authorDetails = useSelector((state) => state.app.users);
   const loggedInUser = useSelector((state) => state.app.loggedInUser.name);
+  const [redirect, setRedirect] = useState(false);
   const [questionAnswer, setQuestionAnswer] = useState({});
-  const selectedQuestion = questions[questionId];
-  const pollAuthor = selectedQuestion.author;
-  const authorDetail = authorDetails[pollAuthor];
-  const optionOneVotes = selectedQuestion.optionOne.votes.length;
-  const optionTwoVotes = selectedQuestion.optionTwo.votes.length;
-  const selectedOptionOnePollText = selectedQuestion.optionOne.text;
-  const selectedOptionTwoPollText = selectedQuestion.optionTwo.text;
-
-  let selectedQuestionCopy = {};
+  const selectedQuestion = questions && questions[questionId];
+  const pollAuthor = selectedQuestion?.author;
+  const authorDetail = authorDetails && authorDetails[pollAuthor];
+  const optionOneVotes = selectedQuestion?.optionOne?.votes.length;
+  const optionTwoVotes = selectedQuestion?.optionTwo?.votes.length;
+  const selectedOptionOnePollText = selectedQuestion?.optionOne?.text;
+  const selectedOptionTwoPollText = selectedQuestion?.optionTwo?.text;
 
   useEffect(() => {
     if (questionAnswer.hasOwnProperty("qid")) {
@@ -36,6 +36,16 @@ export const QuestionDetails = (props) => {
       dispatch(getAllUsers());
     }
   }, [dispatch, questionAnswer]);
+
+  let selectedQuestionCopy = {};
+
+  if (!selectedQuestion) {
+    setRedirect(true);
+  }
+  if (redirect) {
+    return <Redirect to="/404" />;
+  }
+
   const handleSelectedOption = (e) => {
     const selectedOption = e.target.value;
     if (selectedOption === "optionOne") {
@@ -54,16 +64,16 @@ export const QuestionDetails = (props) => {
       setQuestionAnswer(selectedQuestionCopy);
     }
   };
-  const optionOneVoters = JSON.stringify(selectedQuestion.optionOne.votes);
-  const optionTwoVoters = JSON.stringify(selectedQuestion.optionTwo.votes);
+  const optionOneVoters = JSON.stringify(selectedQuestion?.optionOne.votes);
+  const optionTwoVoters = JSON.stringify(selectedQuestion?.optionTwo.votes);
 
   return (
     <div>
       <h3>Welcome to the Poll {questionId}</h3>
-      <div key={selectedQuestion.id} className="card options-card">
+      <div key={selectedQuestion?.id} className="card options-card">
         <p>Would you Rather</p>
         <img
-          src={authorDetail["avatarURL"]}
+          src={authorDetail?.avatarURL}
           alt="author images"
           className="author-image"
         ></img>

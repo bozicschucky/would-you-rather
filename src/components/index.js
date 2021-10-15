@@ -6,3 +6,4 @@ export { default as ProtectedRoute } from "./protectedRoute.jsx";
 export { default as LogOut } from "./logout.jsx";
 export { default as NavBar } from "./nav.jsx";
 export { default as CreatePoll } from "./createPoll.jsx";
+export { default as NotFound } from "./notFound.jsx";
