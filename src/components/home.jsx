@@ -5,9 +5,9 @@ import { getQuestions } from "../store/reducers";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const loggedInUser = useSelector((state) => state.counter.loggedInUser.name);
-  const answerDetails = useSelector((state) => state.counter.answerDetails);
-  const questions = useSelector((state) => state.counter.questions);
+  const loggedInUser = useSelector((state) => state.app.loggedInUser.name);
+  const answerDetails = useSelector((state) => state.app.answerDetails);
+  const questions = useSelector((state) => state.app.questions);
   const questionsArray = Object.values(questions);
 
   const [dataCategory, setDataToggle] = useState("unanswered");

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 export const NavBar = () => {
-  const loggedIn = useSelector((state) => state.counter.loggedInUser.loggedIn);
+  const loggedIn = useSelector((state) => state.app.loggedInUser.loggedIn);
   return loggedIn ? (
     <nav>
       <ul className="nav-items">

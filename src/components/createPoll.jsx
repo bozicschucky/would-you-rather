@@ -8,7 +8,7 @@ const CreatePoll = () => {
   const [optionTwo, setOptionTwo] = useState("");
   const [redirect, setRedirect] = useState(false);
   const dispatch = useDispatch();
-  const loggedInUser = useSelector((state) => state.counter.loggedInUser.name);
+  const loggedInUser = useSelector((state) => state.app.loggedInUser.name);
   const [question, setQuestion] = useState({});
 
   const handleOptionOneInputChange = (e) => {

@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 const LeaderBoards = () => {
-  const users = useSelector((state) => state.counter.users);
+  const users = useSelector((state) => state.app.users);
   const userArray = Object.values(users);
   const processedUsers = [];
   userArray.forEach((user) => {
