@@ -1,34 +1,32 @@
-# Would you rather.
+# Would you rather app.
 
-Simple app to help users poll there questions and look at the user leader boards.
+Simple app to help users create polls, vote on polls created by themselves, view LeaderBoards.
 
-# Getting Started with Create React App
+## Features
+
+- [x] Login
+- [x] Logout
+- [x] Create polls
+- [x] View poll details
+- [x] Vote on polls
+- [x] LeaderBoards
+
+## Getting Started
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## How to run the app
 
-In the project directory, you can run:
+- git clone the project
+- cd into the project folder
+- npm install or yarn
+- npm start or yarn start
+- Runs the app in the development mode.\
+  Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-### `yarn start`
+## Dependencies
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- [React](https://reactjs.org/)
+- [React Router](https://reacttraining.com/react-router/web/guides/quick-start)
+- [React Redux](https://redux.js.org/)
+- [redux toolKit](https://redux-toolkit.js.org/)
