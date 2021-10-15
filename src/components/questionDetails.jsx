@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { saveQuestionAnswer, getQuestions } from "../store/reducers";
+import {
+  saveQuestionAnswer,
+  getQuestions,
+  getAllUsers,
+} from "../store/reducers";
 
 const computePercentage = (votes, totalVotes) => {
   if (votes === 0) {
@@ -11,9 +15,9 @@ const computePercentage = (votes, totalVotes) => {
 export const QuestionDetails = (props) => {
   const dispatch = useDispatch();
   const questionId = props.match.params.id;
-  const questions = useSelector((state) => state.counter.questions);
-  const authorDetails = useSelector((state) => state.counter.users);
-  const loggedInUser = useSelector((state) => state.counter.loggedInUser.name);
+  const questions = useSelector((state) => state.app.questions);
+  const authorDetails = useSelector((state) => state.app.users);
+  const loggedInUser = useSelector((state) => state.app.loggedInUser.name);
   const [questionAnswer, setQuestionAnswer] = useState({});
   const selectedQuestion = questions[questionId];
   const pollAuthor = selectedQuestion.author;
@@ -29,6 +33,7 @@ export const QuestionDetails = (props) => {
     if (questionAnswer.hasOwnProperty("qid")) {
       dispatch(saveQuestionAnswer(questionAnswer));
       dispatch(getQuestions(questionAnswer));
+      dispatch(getAllUsers());
     }
   }, [dispatch, questionAnswer]);
   const handleSelectedOption = (e) => {

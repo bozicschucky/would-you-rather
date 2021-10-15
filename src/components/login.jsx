@@ -7,10 +7,10 @@ const Login = () => {
   const dispatch = useDispatch();
 
   const users = useSelector((state) => {
-    return state.counter.users;
+    return state.app.users;
   });
   const isUserLoggedIn = useSelector((state) => {
-    return state.counter.loggedInUser.loggedIn;
+    return state.app.loggedInUser.loggedIn;
   });
   let selectedUser = "";
   const availableUsers = Object.keys(users);

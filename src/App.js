@@ -20,11 +20,7 @@ function App() {
           <Route path="/login">
             <Login />
           </Route>
-          <ProtectedRoute
-            exact
-            path="/leader-boards"
-            component={LeaderBoards}
-          />
+          <ProtectedRoute exact path="/leaderboard" component={LeaderBoards} />
           <ProtectedRoute exact path="/add" component={CreatePoll} />
           <ProtectedRoute exact path="/" component={Home} />
           <ProtectedRoute

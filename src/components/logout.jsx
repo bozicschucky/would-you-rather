@@ -6,7 +6,7 @@ const LogOut = () => {
   const dispatch = useDispatch();
 
   const isUserLoggedIn = useSelector((state) => {
-    return state.counter.loggedInUser.loggedIn;
+    return state.app.loggedInUser.loggedIn;
   });
 
   useEffect(() => {

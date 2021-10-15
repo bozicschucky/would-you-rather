@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import counterReducer from "./reducers";
+import wouldRatherSlice from "./reducers";
 
 export default configureStore({
-  reducer: { counter: counterReducer },
+  reducer: { app: wouldRatherSlice },
 });
