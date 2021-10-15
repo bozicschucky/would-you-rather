@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { saveQuestion } from "../store/reducers";
+import { saveQuestion, getAllUsers } from "../store/reducers";
 
 const CreatePoll = () => {
   const [optionOne, setOptionOne] = useState("");
@@ -23,6 +23,7 @@ const CreatePoll = () => {
   useEffect(() => {
     if (question.optionOneText && question.optionTwoText) {
       dispatch(saveQuestion(question));
+      dispatch(getAllUsers());
       setRedirect(true);
     }
   }, [dispatch, question]);

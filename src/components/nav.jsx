@@ -14,7 +14,7 @@ export const NavBar = () => {
           <Link to="/add">Create Poll</Link>
         </li>
         <li>
-          <Link to="/leader-boards">LeaderBoards</Link>
+          <Link to="/leaderboard">LeaderBoards</Link>
         </li>
         <li>
           <Link to="/logout">log out</Link>
