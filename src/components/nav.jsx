@@ -1,8 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export const NavBar = () => {
-  return (
+  const loggedIn = useSelector((state) => state.counter.loggedInUser.loggedIn);
+  return loggedIn ? (
     <nav>
       <ul className="nav-items">
         <li>
@@ -12,9 +14,6 @@ export const NavBar = () => {
           <Link to="/add">Create Poll</Link>
         </li>
         <li>
-          <Link to="/question-details/:id">Question Details</Link>
-        </li>
-        <li>
           <Link to="/leader-boards">LeaderBoards</Link>
         </li>
         <li>
@@ -22,6 +21,12 @@ export const NavBar = () => {
         </li>
       </ul>
     </nav>
+  ) : (
+    <ul className="nav-items">
+      <li>
+        <h2>Welcome to the Would You Rather App</h2>
+      </li>
+    </ul>
   );
 };
 
