@@ -114,3 +114,8 @@ ul {
 html {
     overflow-x: hidden;
 }
+
+.select-option-form{
+  display: flex;
+  flex-direction: row;
+}
