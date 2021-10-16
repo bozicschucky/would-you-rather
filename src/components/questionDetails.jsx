@@ -19,7 +19,6 @@ export const QuestionDetails = (props) => {
   const questions = useSelector((state) => state.app.questions);
   const authorDetails = useSelector((state) => state.app.users);
   const loggedInUser = useSelector((state) => state.app.loggedInUser.name);
-  const [redirect, setRedirect] = useState(false);
   const [questionAnswer, setQuestionAnswer] = useState({});
   const selectedQuestion = questions && questions[questionId];
   const pollAuthor = selectedQuestion?.author;
@@ -38,13 +37,6 @@ export const QuestionDetails = (props) => {
   }, [dispatch, questionAnswer]);
 
   let selectedQuestionCopy = {};
-
-  if (!selectedQuestion) {
-    setRedirect(true);
-  }
-  if (redirect) {
-    return <Redirect to="/404" />;
-  }
 
   const handleSelectedOption = (e) => {
     const selectedOption = e.target.value;
@@ -66,6 +58,10 @@ export const QuestionDetails = (props) => {
   };
   const optionOneVoters = JSON.stringify(selectedQuestion?.optionOne.votes);
   const optionTwoVoters = JSON.stringify(selectedQuestion?.optionTwo.votes);
+
+  if (!selectedQuestion) {
+    return <Redirect to="/404" />;
+  }
 
   return (
     <div>
