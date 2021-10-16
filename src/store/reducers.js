@@ -6,6 +6,16 @@ import {
   _saveQuestionAnswer,
 } from "../data";
 
+const initialState = {
+  answerDetails: { answer: false, details: {} },
+  users: [],
+  loggedInUser: {
+    name: "",
+    loggedIn: false,
+  },
+  questions: [],
+};
+
 export const getAllUsers = createAsyncThunk(
   "users/getUsers",
   async (payload, { rejectWithValue }) => {
@@ -59,15 +69,7 @@ export const saveQuestionAnswer = createAsyncThunk(
 
 export const wouldRatherSlice = createSlice({
   name: "app",
-  initialState: {
-    answerDetails: { answer: false, details: {} },
-    users: [],
-    loggedInUser: {
-      name: "",
-      loggedIn: false,
-    },
-    questions: [],
-  },
+  initialState,
   reducers: {},
   extraReducers(builder) {
     builder.addCase(getAllUsers.fulfilled, (state, action) => {

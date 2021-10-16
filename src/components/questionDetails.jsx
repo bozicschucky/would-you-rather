@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Redirect } from "react-router-dom";
+import PropTypes from "prop-types";
 import {
   saveQuestionAnswer,
   getQuestions,
@@ -19,8 +20,10 @@ export const QuestionDetails = (props) => {
   const questions = useSelector((state) => state.app.questions);
   const authorDetails = useSelector((state) => state.app.users);
   const loggedInUser = useSelector((state) => state.app.loggedInUser.name);
-  const [redirect, setRedirect] = useState(false);
   const [questionAnswer, setQuestionAnswer] = useState({});
+  const [optionOneCheckBox, setOptionOneCheckBox] = useState(false);
+  const [optionTwoCheckBox, setOptionTwoCheckBox] = useState(false);
+  let selectedUserOption = "";
   const selectedQuestion = questions && questions[questionId];
   const pollAuthor = selectedQuestion?.author;
   const authorDetail = authorDetails && authorDetails[pollAuthor];
@@ -37,35 +40,40 @@ export const QuestionDetails = (props) => {
     }
   }, [dispatch, questionAnswer]);
 
+  if (selectedQuestion?.optionOne?.votes.includes(loggedInUser)) {
+    selectedUserOption = "optionOne";
+  }
+  if (selectedQuestion?.optionTwo?.votes.includes(loggedInUser)) {
+    selectedUserOption = "optionTwo";
+  }
   let selectedQuestionCopy = {};
 
-  if (!selectedQuestion) {
-    setRedirect(true);
-  }
-  if (redirect) {
-    return <Redirect to="/404" />;
-  }
-
-  const handleSelectedOption = (e) => {
+  const selectedInput = (e) => {
     const selectedOption = e.target.value;
-    if (selectedOption === "optionOne") {
-      selectedQuestionCopy = {
-        answer: selectedOption,
-        authedUser: loggedInUser,
-        qid: questionId,
-      };
-      setQuestionAnswer(selectedQuestionCopy);
-    } else {
-      selectedQuestionCopy = {
-        answer: selectedOption,
-        authedUser: loggedInUser,
-        qid: questionId,
-      };
-      setQuestionAnswer(selectedQuestionCopy);
+    const checked = e.target.checked;
+
+    if (selectedOption === "optionOne" && checked) {
+      setOptionOneCheckBox(checked);
+      setOptionTwoCheckBox(false);
     }
+    if (selectedOption === "optionTwo" && checked) {
+      setOptionTwoCheckBox(checked);
+      setOptionOneCheckBox(false);
+    }
+    selectedQuestionCopy = {
+      answer: selectedOption,
+      authedUser: loggedInUser,
+      qid: questionId,
+    };
+    selectedUserOption = "";
+    setQuestionAnswer(selectedQuestionCopy);
   };
   const optionOneVoters = JSON.stringify(selectedQuestion?.optionOne.votes);
   const optionTwoVoters = JSON.stringify(selectedQuestion?.optionTwo.votes);
+
+  if (!selectedQuestion) {
+    return <Redirect to="/404" />;
+  }
 
   return (
     <div>
@@ -89,18 +97,38 @@ export const QuestionDetails = (props) => {
               {computePercentage(optionOneVotes, 3)}% ||{" "}
               {computePercentage(optionTwoVotes, 3)} %
             </p>
-            <div>
-              <label htmlFor="options">Vote:</label>
-              <select
-                id="options"
-                defaultValue="choose between the options"
-                onChange={handleSelectedOption}
-              >
-                <option value="">vote</option>
-                <option value="optionOne">Option one</option>
-                <option value="optionTwo">Option two</option>
-              </select>
-            </div>
+            <form className="input-form select-option-form">
+              <span>
+                <label htmlFor="optionOne">OptionOne:</label>
+                <input
+                  type="checkbox"
+                  id="optionOne"
+                  value="optionOne"
+                  checked={
+                    optionOneCheckBox || selectedUserOption === "optionOne"
+                      ? "checked"
+                      : ""
+                  }
+                  onChange={selectedInput}
+                ></input>
+              </span>{" "}
+              ||
+              <span>
+                <label htmlFor="optionTwo">OptionTwo:</label>
+                <input
+                  type="checkbox"
+                  id="optionTwo"
+                  value="optionTwo"
+                  checked={
+                    optionTwoCheckBox || selectedUserOption === "optionTwo"
+                      ? "checked"
+                      : ""
+                  }
+                  onChange={selectedInput}
+                ></input>
+              </span>
+            </form>
+
             <p>
               Option voters: {optionOneVoters} || {optionTwoVoters}
             </p>
@@ -110,6 +138,10 @@ export const QuestionDetails = (props) => {
       </div>
     </div>
   );
+};
+
+QuestionDetails.propTypes = {
+  props: PropTypes.object,
 };
 
 export default QuestionDetails;

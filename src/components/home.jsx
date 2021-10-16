@@ -63,7 +63,7 @@ const Home = () => {
         {sortedData.map((qtn) => {
           return (
             <React.Fragment key={qtn.id}>
-              <Link to={`question-details/${qtn.id}`}>
+              <Link to={`questions/${qtn.id}`}>
                 <div key={qtn.id} className="card options-card">
                   <div className="options-holder">
                     <div className="option-text">
