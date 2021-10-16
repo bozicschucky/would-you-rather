@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
+import PropTypes from "prop-types";
 
 const ProtectedRoute = ({ component: Component, ...rest }) => {
   const user = useSelector((state) => {
@@ -27,6 +28,10 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
       }}
     />
   );
+};
+
+ProtectedRoute.propTypes = {
+  rest: PropTypes.object,
 };
 
 export default ProtectedRoute;

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Redirect } from "react-router-dom";
+import PropTypes from "prop-types";
 import {
   saveQuestionAnswer,
   getQuestions,
@@ -137,6 +138,10 @@ export const QuestionDetails = (props) => {
       </div>
     </div>
   );
+};
+
+QuestionDetails.propTypes = {
+  props: PropTypes.object,
 };
 
 export default QuestionDetails;
